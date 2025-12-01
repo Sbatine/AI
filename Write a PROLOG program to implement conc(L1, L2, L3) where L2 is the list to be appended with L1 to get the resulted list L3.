@@ -1,0 +1,17 @@
+% conc(L1, L2, L3)
+% L3 Ã© o resultado de L1 concatenado com L2
+
+conc([], L, L).                 % Caso base
+conc([H|T], L2, [H|R]) :-       % Regra recursiva
+    conc(T, L2, R).
+
+output
+?- conc([1,2], [3,4], X).
+X = [1, 2, 3, 4].
+
+?- conc([a,b], X, [a,b,c,d]).
+X = [c, d].
+
+?- conc(Prefixo, Sufixo, [1,2,3]).
+Prefixo = [],
+Sufixo = [1, 2, 3] 
