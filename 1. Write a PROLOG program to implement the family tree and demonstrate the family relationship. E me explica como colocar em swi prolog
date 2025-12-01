@@ -1,0 +1,71 @@
+% ----- FACTS -----
+male(john).
+male(paul).
+male(mike).
+male(david).
+
+female(linda).
+female(sarah).
+female(anna).
+female(mary).
+
+parent(john, paul).
+parent(linda, paul).
+
+parent(john, sarah).
+parent(linda, sarah).
+
+parent(paul, mike).
+parent(anna, mike).
+
+parent(paul, mary).
+parent(anna, mary).
+
+% ----- RULES -----
+father(F, C) :- male(F), parent(F, C).
+mother(M, C) :- female(M), parent(M, C).
+
+grandparent(G, C) :-
+    parent(G, P),
+    parent(P, C).
+
+grandfather(G, C) :- 
+    male(G), grandparent(G, C).
+
+grandmother(G, C) :- 
+    female(G), grandparent(G, C).
+
+sibling(X, Y) :-
+    parent(P, X),
+    parent(P, Y),
+    X \= Y.
+
+brother(B, X) :-
+    male(B),
+    sibling(B, X).
+
+sister(S, X) :-
+    female(S),
+    sibling(S, X).
+
+uncle(U, X) :-
+    male(U),
+    parent(P, X),
+    sibling(U, P).
+
+aunt(A, X) :-
+    female(A),
+    parent(P, X),
+    sibling(A, P).
+
+
+output
+?- father(X, paul).
+
+?- sibling(X, sarah).
+
+?- grandfather(X, mike).
+
+?- aunt(X, mary).
+
+?- parent(paul, X).
